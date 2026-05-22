@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
 /*
  * Design system definition.
  *
@@ -19,6 +21,13 @@
  */
 
 @theme inline {
+  --font-sans: "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-sand: var(--brand-sand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-line: var(--brand-line);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -63,8 +72,13 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --background: oklch(0.97 0.003 250);
+  --foreground: oklch(0.18 0.012 240);
+  --brand-teal: oklch(0.36 0.045 180);
+  --brand-accent: oklch(0.46 0.05 180);
+  --brand-sand: oklch(0.96 0.008 80);
+  --brand-ink: oklch(0.18 0.012 240);
+  --brand-line: oklch(0.18 0.012 240 / 0.1);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
@@ -140,5 +154,22 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
 }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes cbs-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cbs-reveal { animation: cbs-reveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) both; }
+
+@keyframes cbs-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.cbs-draw { animation: cbs-draw 1.2s cubic-bezier(0.19, 1, 0.22, 1) both; transform-origin: left; }
+[dir="rtl"] .cbs-draw { transform-origin: right; }
