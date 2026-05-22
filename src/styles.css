@@ -72,8 +72,13 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --background: oklch(0.97 0.003 250);
+  --foreground: oklch(0.18 0.012 240);
+  --brand-teal: oklch(0.36 0.045 180);
+  --brand-accent: oklch(0.46 0.05 180);
+  --brand-sand: oklch(0.96 0.008 80);
+  --brand-ink: oklch(0.18 0.012 240);
+  --brand-line: oklch(0.18 0.012 240 / 0.1);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
