@@ -17,6 +17,8 @@
   --color-brand-line: var(--brand-line);
   --color-brand-glow: var(--brand-glow);
   --color-brand-amber: var(--brand-amber);
+  --color-brand-omani-red: var(--brand-omani-red);
+  --color-brand-omani-green: var(--brand-omani-green);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
