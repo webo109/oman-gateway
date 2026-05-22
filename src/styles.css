@@ -223,3 +223,18 @@
 @keyframes cbs-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .cbs-draw { animation: cbs-draw 1.2s cubic-bezier(0.19, 1, 0.22, 1) both; transform-origin: left; }
 [dir="rtl"] .cbs-draw { transform-origin: right; }
+
+/* Omani 8-point star tessellation (subtle decorative overlay) */
+.bg-omani-pattern {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none'><g stroke='%2378e5e0' stroke-opacity='0.18' stroke-width='1'><polygon points='40,6 47,25 66,25 51,38 57,57 40,46 23,57 29,38 14,25 33,25'/><polygon points='40,74 47,55 66,55 51,42 57,23 40,34 23,23 29,42 14,55 33,55'/></g></svg>");
+  background-size: 80px 80px;
+}
+.bg-omani-pattern-soft { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120' fill='none'><g stroke='%2378e5e0' stroke-opacity='0.08' stroke-width='0.8'><polygon points='60,10 70,40 100,40 76,58 86,86 60,68 34,86 44,58 20,40 50,40'/></g></svg>"); background-size: 120px 120px; }
+
+/* Subtle Omani accent stripe (red / white / green echo) */
+.omani-stripe {
+  background: linear-gradient(90deg,
+    var(--brand-omani-red) 0 33.3%,
+    oklch(0.97 0.005 240) 33.3% 66.6%,
+    var(--brand-omani-green) 66.6% 100%);
+}
