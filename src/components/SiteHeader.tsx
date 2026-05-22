@@ -1,5 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const links = [
   { to: "/", key: "nav.home" as const },
@@ -12,27 +14,44 @@ const links = [
 export function SiteHeader() {
   const { t, lang, toggle } = useI18n();
   const { location } = useRouterState();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 12);
+    on(); window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+
+  useEffect(() => { setOpen(false); }, [location.pathname]);
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 border-b border-brand-line bg-background/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <div className="size-3 bg-brand-teal" aria-hidden />
-          <span className="text-sm font-semibold tracking-tighter uppercase whitespace-nowrap">
-            <span className="hidden sm:inline">CBS — Centric Business Solutions</span>
+    <nav
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        scrolled ? "bg-background/70 backdrop-blur-xl border-b border-brand-line" : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+        <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+          <span className="relative inline-flex">
+            <span className="absolute inset-0 rounded-full bg-brand-teal/40 blur-md group-hover:blur-lg transition-all" />
+            <span className="relative size-2.5 rounded-full bg-brand-teal" aria-hidden />
+          </span>
+          <span className="text-sm font-semibold tracking-tight">
+            <span className="hidden sm:inline">CBS <span className="text-foreground/40">/ Centric Business Solutions</span></span>
             <span className="sm:hidden">CBS</span>
           </span>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-7">
           {links.slice(1).map((l) => {
             const active = location.pathname === l.to;
             return (
               <Link
                 key={l.to}
                 to={l.to}
-                className={`text-xs font-medium uppercase tracking-widest transition-colors ${
-                  active ? "text-foreground" : "text-foreground/50 hover:text-foreground"
+                className={`text-[12px] font-medium tracking-wide transition-colors story-link ${
+                  active ? "text-foreground" : "text-foreground/55 hover:text-foreground"
                 }`}
               >
                 {t(l.key)}
@@ -41,30 +60,43 @@ export function SiteHeader() {
           })}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={toggle}
-            className="text-xs font-medium uppercase tracking-tighter border border-brand-line px-2 py-1 hover:bg-foreground hover:text-background transition-colors"
+            className="text-[11px] font-medium tracking-tighter rounded-full border border-brand-line px-2.5 py-1 hover:border-brand-teal/60 hover:text-brand-teal transition-colors"
             aria-label="Toggle language"
           >
             {lang === "en" ? "العربية" : "EN"}
           </button>
           <Link
             to="/partnership"
-            className="hidden sm:inline-flex bg-brand-teal text-background text-sm font-medium py-2 px-3 items-center gap-2 ring-1 ring-brand-teal/20 transition-transform active:scale-[0.98]"
+            className="hidden sm:inline-flex group relative overflow-hidden rounded-full bg-brand-teal text-primary-foreground text-[12px] font-medium py-2 ps-3.5 pe-2 items-center gap-2 hover:shadow-[0_10px_30px_-10px_var(--brand-glow)] transition-all"
           >
             <span>{t("nav.portal")}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className={`size-4 shrink-0 ${lang === "ar" ? "rotate-180" : ""}`}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M15 12l-6.75 6.75" />
-            </svg>
+            <ArrowUpRight className={`size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${lang === "ar" ? "-scale-x-100" : ""}`} />
           </Link>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden ml-1 rounded-full p-2 border border-brand-line text-foreground/70 hover:text-foreground"
+            aria-label="Menu"
+          >
+            {open ? <X className="size-4" /> : <Menu className="size-4" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-500 ${
+          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        } bg-background/95 backdrop-blur-xl border-t border-brand-line`}
+      >
+        <div className="px-6 py-6 flex flex-col gap-4">
+          {links.map((l) => (
+            <Link key={l.to} to={l.to} className="text-sm font-medium text-foreground/80 hover:text-brand-teal">
+              {t(l.key)}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
