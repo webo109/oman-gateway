@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as PowerRouteImport } from './routes/power'
+import { Route as PartnershipRouteImport } from './routes/partnership'
 import { Route as LocalizationRouteImport } from './routes/localization'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const RoadmapRoute = RoadmapRouteImport.update({
 const PowerRoute = PowerRouteImport.update({
   id: '/power',
   path: '/power',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnershipRoute = PartnershipRouteImport.update({
+  id: '/partnership',
+  path: '/partnership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocalizationRoute = LocalizationRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/localization': typeof LocalizationRoute
+  '/partnership': typeof PartnershipRoute
   '/power': typeof PowerRoute
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/localization': typeof LocalizationRoute
+  '/partnership': typeof PartnershipRoute
   '/power': typeof PowerRoute
   '/roadmap': typeof RoadmapRoute
 }
@@ -51,20 +59,28 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/localization': typeof LocalizationRoute
+  '/partnership': typeof PartnershipRoute
   '/power': typeof PowerRoute
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/localization' | '/power' | '/roadmap'
+  fullPaths: '/' | '/localization' | '/partnership' | '/power' | '/roadmap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/localization' | '/power' | '/roadmap'
-  id: '__root__' | '/' | '/localization' | '/power' | '/roadmap'
+  to: '/' | '/localization' | '/partnership' | '/power' | '/roadmap'
+  id:
+    | '__root__'
+    | '/'
+    | '/localization'
+    | '/partnership'
+    | '/power'
+    | '/roadmap'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocalizationRoute: typeof LocalizationRoute
+  PartnershipRoute: typeof PartnershipRoute
   PowerRoute: typeof PowerRoute
   RoadmapRoute: typeof RoadmapRoute
 }
@@ -83,6 +99,13 @@ declare module '@tanstack/react-router' {
       path: '/power'
       fullPath: '/power'
       preLoaderRoute: typeof PowerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partnership': {
+      id: '/partnership'
+      path: '/partnership'
+      fullPath: '/partnership'
+      preLoaderRoute: typeof PartnershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/localization': {
@@ -105,6 +128,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocalizationRoute: LocalizationRoute,
+  PartnershipRoute: PartnershipRoute,
   PowerRoute: PowerRoute,
   RoadmapRoute: RoadmapRoute,
 }
