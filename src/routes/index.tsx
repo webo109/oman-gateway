@@ -199,7 +199,7 @@ function Index() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className={`grid place-items-center size-10 rounded-xl ${isActive ? "bg-brand-teal text-primary-foreground" : "bg-foreground/5 text-foreground/60"}`}>
-                          <I className="size-4.5" />
+                          <I className="size-4" />
                         </span>
                         <span className="font-mono text-[10px] tracking-[0.25em] text-foreground/45">P.{p.no}</span>
                       </div>
