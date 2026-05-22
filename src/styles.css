@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
 /*
  * Design system definition.
  *
@@ -19,6 +21,13 @@
  */
 
 @theme inline {
+  --font-sans: "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-sand: var(--brand-sand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-line: var(--brand-line);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
