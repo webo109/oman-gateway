@@ -62,9 +62,12 @@
   --brand-glow: oklch(0.82 0.16 195 / 0.55);
   --brand-accent: oklch(0.78 0.14 195);
   --brand-amber: oklch(0.82 0.12 75);
-  --brand-sand: oklch(0.92 0.018 75);
+  --brand-sand: oklch(0.22 0.022 75);
   --brand-ink: oklch(0.09 0.02 240);
   --brand-line: oklch(0.97 0.005 240 / 0.10);
+  /* Omani identity accents (drawn from the Sultanate flag, used sparingly) */
+  --brand-omani-red: oklch(0.55 0.20 25);
+  --brand-omani-green: oklch(0.48 0.10 155);
 
   --card: oklch(0.18 0.02 240);
   --card-foreground: oklch(0.97 0.005 240);
