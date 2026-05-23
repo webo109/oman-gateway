@@ -5,7 +5,7 @@ import { Counter } from "@/components/Counter";
 import { Marquee } from "@/components/Marquee";
 import { useRevealAll } from "@/hooks/useReveal";
 import { useI18n } from "@/lib/i18n";
-import { ArrowUpRight, ArrowRight, Zap, Cpu, Globe2, Layers, Shield, Sparkles } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Zap, Cpu, Globe2, Layers, Shield, Sparkles, Sprout, Mountain, Truck, Wheat } from "lucide-react";
 import substationImg from "@/assets/substation.jpg";
 import solarImg from "@/assets/solar.jpg";
 import bessImg from "@/assets/bess.jpg";
@@ -27,16 +27,40 @@ function Index() {
   const { t, lang } = useI18n();
   const root = useRevealAll();
 
-  const phases = [
+  type PhaseCard = {
+    no: string;
+    status: "active" | "planned" | "future";
+    icon: typeof Zap;
+    title: string;
+    body: string;
+    to: string;
+    params?: Record<string, string>;
+  };
+  const phases: PhaseCard[] = [
     { no: "01", status: "active", icon: Zap,
       title: lang === "ar" ? "الطاقة والمتجددة" : "Power & Renewables",
-      body: lang === "ar" ? "القطاع التشغيلي الحالي. الطاقة الشمسية وأنظمة التخزين والشبكات عالية الجهد." : "Operational vertical. Utility solar PV, battery storage, and HV grid infrastructure." },
+      body: lang === "ar" ? "القطاع التشغيلي الحالي. الطاقة الشمسية وأنظمة التخزين والشبكات عالية الجهد." : "Operational vertical. Utility solar PV, battery storage, and HV grid infrastructure.",
+      to: "/power" },
+    { no: "05", status: "active", icon: Sprout,
+      title: lang === "ar" ? "الزراعة" : "Agriculture",
+      body: lang === "ar" ? "زراعة منظمة وموجهة للتصدير عبر ممرات الأمن الغذائي بين الخليج وأفريقيا." : "Structured, export-oriented agriculture across Gulf–Africa food security corridors.",
+      to: "/vertical/$slug", params: { slug: "agriculture" } },
     { no: "02", status: "planned", icon: Layers,
-      title: lang === "ar" ? "البناء والخدمات اللوجستية" : "Construction & Logistics",
-      body: lang === "ar" ? "نقل ثقيل متخصص وأعمال مدنية للبنية التحتية النائية." : "Heavy-lift logistics and specialized civil engineering for remote infrastructure." },
-    { no: "03", status: "future", icon: Globe2,
-      title: lang === "ar" ? "المعادن والزراعة" : "Minerals & Agriculture",
-      body: lang === "ar" ? "استخراج المعادن الحرجة وشبكات استيراد وتصدير المواد الغذائية." : "Critical minerals extraction and East Africa–Gulf trade corridors." },
+      title: lang === "ar" ? "البناء" : "Construction",
+      body: lang === "ar" ? "هندسة مدنية متخصصة وأعمال بنية تحتية ثقيلة." : "Specialized civil engineering and heavy infrastructure execution.",
+      to: "/vertical/$slug", params: { slug: "construction" } },
+    { no: "03", status: "planned", icon: Truck,
+      title: lang === "ar" ? "الخدمات اللوجستية" : "Logistics",
+      body: lang === "ar" ? "نقل ثقيل وسلاسل توريد للمواقع الصناعية النائية." : "Heavy-lift transport and supply-chain orchestration for remote sites.",
+      to: "/vertical/$slug", params: { slug: "logistics" } },
+    { no: "04", status: "future", icon: Mountain,
+      title: lang === "ar" ? "المعادن" : "Minerals",
+      body: lang === "ar" ? "تموضع في المعادن الحرجة المرتبطة بتحول الطاقة." : "Strategic positioning in critical minerals tied to the energy transition.",
+      to: "/vertical/$slug", params: { slug: "minerals" } },
+    { no: "06", status: "future", icon: Wheat,
+      title: lang === "ar" ? "استيراد وتصدير المواد الغذائية" : "Foodstuffs Import & Export",
+      body: lang === "ar" ? "شبكات تجارة منظمة للسلع الأساسية بين شرق أفريقيا والخليج." : "Structured trading networks for staples between East Africa and the Gulf.",
+      to: "/vertical/$slug", params: { slug: "foodstuffs" } },
   ];
 
   const capabilities = [
@@ -190,12 +214,17 @@ function Index() {
               </Link>
             </div>
 
-            <div className="px-6 max-w-7xl mx-auto grid md:grid-cols-3 gap-5">
+            <div className="px-6 max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {phases.map((p, i) => {
                 const I = p.icon;
                 const isActive = p.status === "active";
                 return (
-                  <div key={i} className={`reveal reveal-delay-${i + 1} group relative tilt-card rounded-2xl border ${isActive ? "border-brand-teal/40 bg-gradient-to-b from-brand-teal/10 to-transparent shimmer-border" : "border-brand-line bg-card/40"} backdrop-blur p-6 sm:p-7 min-h-[260px] flex flex-col justify-between`}>
+                  <Link
+                    key={i}
+                    to={p.to as any}
+                    params={p.params as any}
+                    className={`reveal reveal-delay-${(i % 3) + 1} group relative rounded-2xl border ${isActive ? "border-brand-teal/40 bg-gradient-to-b from-brand-teal/10 to-transparent shimmer-border" : "border-brand-line bg-card/40"} backdrop-blur p-6 sm:p-7 min-h-[260px] flex flex-col justify-between transition-all duration-300 ease-out hover:scale-[1.04] hover:border-brand-teal/60 hover:shadow-[0_30px_80px_-30px_var(--brand-glow)] cursor-pointer`}
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className={`grid place-items-center size-10 rounded-xl ${isActive ? "bg-brand-teal text-primary-foreground" : "bg-foreground/5 text-foreground/60"}`}>
@@ -208,11 +237,14 @@ function Index() {
                       </span>
                     </div>
                     <div className="mt-8">
-                      <h3 className="text-xl font-medium">{p.title}</h3>
+                      <h3 className="text-xl font-medium group-hover:text-brand-teal transition-colors">{p.title}</h3>
                       <p className="mt-2 text-sm text-foreground/60 leading-relaxed">{p.body}</p>
                     </div>
-                    <div className="mt-6 h-px w-full bg-gradient-to-r from-brand-teal/60 via-brand-line to-transparent" />
-                  </div>
+                    <div className="mt-6 flex items-center justify-between">
+                      <div className="h-px flex-1 bg-gradient-to-r from-brand-teal/60 via-brand-line to-transparent" />
+                      <ArrowUpRight className="ml-3 size-4 text-foreground/40 group-hover:text-brand-teal transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </div>
+                  </Link>
                 );
               })}
             </div>
