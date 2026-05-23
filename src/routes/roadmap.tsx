@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { useI18n } from "@/lib/i18n";
+import { ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/roadmap")({
   head: () => ({
@@ -26,7 +27,7 @@ type Phase = "active" | "planned" | "future";
 function RoadmapPage() {
   const { t, lang } = useI18n();
 
-  const phases: { n: string; status: Phase; date: string; title: string; body: string }[] = [
+  const phases: { n: string; status: Phase; date: string; title: string; body: string; to: string; params?: Record<string, string> }[] = [
     {
       n: "01",
       status: "active",
@@ -36,6 +37,7 @@ function RoadmapPage() {
         lang === "ar"
           ? "أداة المشاريع المشتركة التشغيلية بالكامل — الطاقة الشمسية، أنظمة التخزين BESS، والشبكات عالية الجهد عبر دول الخليج وشرق أفريقيا."
           : "Fully operational JV vehicle — utility solar, BESS, and HV grid projects across the GCC and East Africa.",
+      to: "/power",
     },
     {
       n: "02",
@@ -46,6 +48,8 @@ function RoadmapPage() {
         lang === "ar"
           ? "هندسة مدنية متخصصة وأعمال بنية تحتية ثقيلة دعماً لمشاريع المرافق."
           : "Specialized civil engineering and heavy infrastructure execution in support of utility deployment.",
+      to: "/vertical/$slug",
+      params: { slug: "construction" },
     },
     {
       n: "03",
@@ -56,6 +60,8 @@ function RoadmapPage() {
         lang === "ar"
           ? "نقل ثقيل وسلاسل توريد للمواقع الصناعية النائية في عُمان وأفريقيا."
           : "Heavy-lift transport and supply-chain orchestration for remote industrial sites.",
+      to: "/vertical/$slug",
+      params: { slug: "logistics" },
     },
     {
       n: "04",
@@ -66,16 +72,20 @@ function RoadmapPage() {
         lang === "ar"
           ? "تموضع في مجال المعادن الحرجة المرتبطة بتحول الطاقة وسلاسل توريد البطاريات."
           : "Strategic positioning in critical minerals tied to the energy transition and battery supply chains.",
+      to: "/vertical/$slug",
+      params: { slug: "minerals" },
     },
     {
       n: "05",
-      status: "future",
-      date: lang === "ar" ? "أفق طويل" : "Long-horizon",
+      status: "active",
+      date: lang === "ar" ? "نشط · 2025" : "Active · 2025",
       title: lang === "ar" ? "الزراعة" : "Agriculture",
       body:
         lang === "ar"
           ? "زراعة منظمة وموجهة للتصدير عبر ممرات الأمن الغذائي الخليجي-الأفريقي."
           : "Structured, export-oriented agriculture across Gulf-Africa food security corridors.",
+      to: "/vertical/$slug",
+      params: { slug: "agriculture" },
     },
     {
       n: "06",
@@ -86,6 +96,8 @@ function RoadmapPage() {
         lang === "ar"
           ? "شبكات تجارة منظمة للسلع الغذائية الأساسية بين شرق أفريقيا والخليج."
           : "Structured trading networks for staple commodities between East Africa and the Gulf.",
+      to: "/vertical/$slug",
+      params: { slug: "foodstuffs" },
     },
   ];
 
@@ -110,18 +122,20 @@ function RoadmapPage() {
       <section className="px-6 py-16">
         <div className="max-w-5xl mx-auto">
           {phases.map((p) => (
-            <div
+            <Link
               key={p.n}
-              className={`grid grid-cols-12 gap-6 py-10 border-b border-brand-line transition-opacity ${
+              to={p.to as any}
+              params={p.params as any}
+              className={`group relative grid grid-cols-12 gap-6 py-10 px-4 sm:px-6 -mx-4 sm:-mx-6 border-b border-brand-line rounded-2xl transition-all duration-300 ease-out hover:scale-[1.025] hover:shadow-[0_30px_80px_-30px_var(--brand-glow)] hover:bg-card/40 hover:border-brand-teal/40 ${
                 p.status === "active"
                   ? ""
                   : p.status === "planned"
-                  ? "opacity-70"
-                  : "opacity-40"
+                  ? "opacity-70 hover:opacity-100"
+                  : "opacity-40 hover:opacity-100"
               }`}
             >
               <div className="col-span-12 md:col-span-2">
-                <div className="text-5xl font-medium tracking-tight text-foreground/30">{p.n}</div>
+                <div className="text-5xl font-medium tracking-tight text-foreground/30 group-hover:text-brand-teal transition-colors">{p.n}</div>
               </div>
               <div className="col-span-12 md:col-span-2">
                 <span
@@ -148,10 +162,13 @@ function RoadmapPage() {
                 <div className="text-[10px] uppercase tracking-widest text-foreground/40 mt-2">{p.date}</div>
               </div>
               <div className="col-span-12 md:col-span-8">
-                <h2 className="text-xl sm:text-2xl font-medium tracking-tight mb-2">{p.title}</h2>
+                <div className="flex items-start justify-between gap-4">
+                  <h2 className="text-xl sm:text-2xl font-medium tracking-tight mb-2 group-hover:text-brand-teal transition-colors">{p.title}</h2>
+                  <ArrowUpRight className="size-5 text-foreground/30 group-hover:text-brand-teal transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+                </div>
                 <p className="text-sm text-foreground/60 leading-relaxed max-w-[60ch]">{p.body}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
