@@ -2,7 +2,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import cbsLogo from "@/assets/cbs-logo.png";
 
 const links = [
   { to: "/", key: "nav.home" as const },
@@ -33,14 +32,14 @@ export function SiteHeader() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-3 shrink-0 group" aria-label="CBS Group — Home">
-          <img
-            src={cbsLogo}
-            alt="CBS Group"
-            className="h-9 w-auto rounded-md object-contain transition-transform group-hover:scale-[1.03]"
-          />
-          <span className="hidden md:inline text-[11px] font-medium tracking-[0.22em] uppercase text-foreground/50">
-            Centric Business Solutions
+        <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+          <span className="relative inline-flex">
+            <span className="absolute inset-0 rounded-full bg-brand-teal/40 blur-md group-hover:blur-lg transition-all" />
+            <span className="relative size-2.5 rounded-full bg-brand-teal" aria-hidden />
+          </span>
+          <span className="text-sm font-semibold tracking-tight">
+            <span className="hidden sm:inline">CBS <span className="text-foreground/40">/ Centric Business Solutions</span></span>
+            <span className="sm:hidden">CBS</span>
           </span>
         </Link>
 

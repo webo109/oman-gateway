@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import cbsLogo from "@/assets/cbs-logo.png";
 
 export function SiteFooter() {
   const { t } = useI18n();
@@ -8,7 +7,10 @@ export function SiteFooter() {
     <footer className="bg-background border-t border-brand-line py-16 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
         <div className="max-w-[40ch]">
-          <img src={cbsLogo} alt="CBS Group" className="h-12 w-auto rounded-md object-contain mb-6" />
+          <div className="text-sm font-semibold tracking-tighter uppercase flex items-center gap-2 mb-6">
+            <div className="size-3 bg-brand-teal" aria-hidden />
+            CBS
+          </div>
           <p className="text-sm text-foreground/60 leading-relaxed">{t("footer.ar")}</p>
         </div>
 
