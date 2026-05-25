@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+
+# CBS — Centric for Business Solutions
+Sitemap: https://cbs-oman.com/sitemap.xml

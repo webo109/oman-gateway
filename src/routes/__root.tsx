@@ -68,24 +68,68 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+import { OG_IMAGE_URL, SITE_ORIGIN } from "@/lib/seo";
+
+const ORGANIZATION_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Centric for Business Solutions",
+  alternateName: "CBS",
+  url: SITE_ORIGIN,
+  description:
+    "A private Omani localization platform and strategic joint-venture vehicle for tier-1 global infrastructure firms entering MEA markets.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Muscat",
+    addressCountry: "OM",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "executive@cbs-oman.com",
+    contactType: "Executive Office",
+    availableLanguage: ["English", "Arabic"],
+  },
+  areaServed: [
+    { "@type": "Place", name: "Sultanate of Oman" },
+    { "@type": "Place", name: "Gulf Cooperation Council" },
+    { "@type": "Place", name: "East Africa" },
+    { "@type": "Place", name: "Southern Africa" },
+  ],
+  knowsAbout: [
+    "Utility Solar PV",
+    "Battery Energy Storage",
+    "HV Transmission",
+    "Substation Modernization",
+    "ICV Optimization",
+    "Sovereign Joint Ventures",
+    "Vision 2040 Alignment",
+  ],
+};
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
+      // Site-wide defaults only. Per-page title/description/canonical/og:url come from each route's pageSeo() helper.
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "author", content: "Centric for Business Solutions" },
+      { property: "og:site_name", content: "Centric for Business Solutions" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
-    links: [
+      { property: "og:image", content: OG_IMAGE_URL },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       {
-        rel: "stylesheet",
-        href: appCss,
+        property: "og:image:alt",
+        content: "CBS — Omani localization platform for state-backed infrastructure",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE_URL },
+    ],
+    links: [{ rel: "stylesheet", href: appCss }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(ORGANIZATION_JSONLD),
       },
     ],
   }),

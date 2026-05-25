@@ -10,22 +10,17 @@ const en: Dict = {
   "nav.roadmap": "Strategic Roadmap",
   "nav.localization": "Localization",
   "nav.partnership": "Partnership",
-  "nav.about": "About",
   "nav.portal": "Partner Inquiry",
   "brand.tagline": "Centric for Business Solutions",
   "brand.sub": "Strategic Joint-Venture Vehicle / Sultanate of Oman",
 
   "home.eyebrow": "Sovereign Class · ICV Aligned",
-  "home.h1.a": "Engineering the ",
+  "home.h1.a": "Engineering the",
   "home.h1.b": "localization",
-  "home.h1.c": " of MEA infrastructure.",
+  "home.h1.c": "of MEA infrastructure.",
+  "home.scrollHint": "Scroll",
   "home.lede":
     "CBS facilitates the secure entry of tier-1 global infrastructure firms into Omani and African markets, aligning foreign technical mastery with Sultanate Vision 2040 requirements.",
-  "home.capital": "Capital Register",
-  "home.capitalValue": "Sovereign Class",
-  "home.icv": "ICV Certified",
-  "home.jv": "JV Ready",
-  "home.arNote": "الالتزام بالقيمة المحلية المضافة",
 
   "home.positioning.eye": "01 / Positioning",
   "home.positioning.h": "A private corporate vehicle for state-backed infrastructure.",
@@ -34,18 +29,17 @@ const en: Dict = {
 
   "roadmap.eye": "Implementation Cycle",
   "roadmap.h": "Phased Growth Roadmap",
-  "roadmap.scroll": "Scroll Horizontal [X-Axis]",
 
   "active.eye": "Active Vertical",
   "active.h": "Power & Renewable Energy",
   "active.solarTitle": "Solar PV Utility",
-  "active.solarBody": "Developing large-scale photovoltaic arrays in partnership with global IPP leaders.",
+  "active.solarBody":
+    "Developing large-scale photovoltaic arrays in partnership with global IPP leaders.",
   "active.bessTitle": "BESS Integration",
   "active.bessBody": "Containerized Battery Energy Storage Systems for regional grid stability.",
   "active.gridTitle": "HV Grid Expansion",
-  "active.gridBody": "High-voltage transmission infrastructure and substation modernization programs.",
-  "active.pipeline": "Solar Pipeline",
-  "active.bessCap": "BESS Capacity",
+  "active.gridBody":
+    "High-voltage transmission infrastructure and substation modernization programs.",
   "active.viewDivision": "View division",
 
   "loc.eye": "04 / Structural Advantage",
@@ -91,12 +85,31 @@ const en: Dict = {
   "about.focusVal": "Power Infrastructure & Cross-Border Industrial Joint Ventures",
   "about.registered": "Registered In",
   "about.registeredVal": "Sultanate of Oman",
+  "about.vmEye": "Vision · Mission",
+  "about.visionTitle": "Vision",
+  "about.visionBody":
+    "To be the Sultanate's premier private vehicle for routing tier-1 global infrastructure capital and technology into Oman and the broader MEA corridor — making localization the default, not the exception.",
+  "about.missionTitle": "Mission",
+  "about.missionBody":
+    "Structure exclusive joint ventures between foreign technical leaders and state-backed counterparties. Deliver bankable, ICV-aligned execution across power, agriculture, and adjacent industrial verticals — at sovereign quality, on private timelines.",
+  "about.principleEye": "Operating Principles",
+  "about.principleH": "Three immovable rules.",
+  "about.p1Title": "Localization-first",
+  "about.p1Body":
+    "Every alliance is calibrated to In-Country Value scoring before structure, not after.",
+  "about.p2Title": "Sovereign-grade discretion",
+  "about.p2Body":
+    "We operate as a closed counterparty. No lead funnel, no public deal flow, no syndicated rounds.",
+  "about.p3Title": "Long-horizon equity",
+  "about.p3Body":
+    "Partnerships are written for ten-year arcs — utilities, food systems, transition minerals.",
 
   "footer.address": "Muscat, Sultanate of Oman",
   "footer.qual": "Partnership Qualification",
-  "footer.submit": "Submit Prospectus",
-  "footer.rights": "© 2024 Centric for Business Solutions. All rights reserved.",
-  "footer.ar": "شركة عمانية خاصة لتوطين الخبرات العالمية في قطاع الطاقة والبنية التحتية.",
+  "footer.submit": "Partner Inquiry",
+  "footer.rights": "Centric for Business Solutions. All rights reserved.",
+  "footer.tagline":
+    "A private Omani company localizing global expertise in the energy and infrastructure sector.",
 };
 
 const ar: Dict = {
@@ -105,22 +118,17 @@ const ar: Dict = {
   "nav.roadmap": "خارطة الطريق",
   "nav.localization": "التوطين",
   "nav.partnership": "الشراكة",
-  "nav.about": "نبذة",
   "nav.portal": "تواصل الشركاء",
   "brand.tagline": "المركزية لحلول الأعمال",
   "brand.sub": "أداة مشاريع مشتركة استراتيجية / سلطنة عُمان",
 
   "home.eyebrow": "فئة سيادية · متوافقة مع القيمة المحلية المضافة",
-  "home.h1.a": "هندسة ",
+  "home.h1.a": "هندسة",
   "home.h1.b": "توطين",
-  "home.h1.c": " البنية التحتية في الشرق الأوسط وأفريقيا.",
+  "home.h1.c": "البنية التحتية في الشرق الأوسط وأفريقيا.",
+  "home.scrollHint": "تمرير",
   "home.lede":
     "تُمكّن CBS الشركات العالمية من الفئة الأولى من الدخول الآمن إلى الأسواق العُمانية والأفريقية، عبر مواءمة الخبرة الأجنبية مع متطلبات رؤية عُمان 2040.",
-  "home.capital": "السجل الرأسمالي",
-  "home.capitalValue": "فئة سيادية",
-  "home.icv": "معتمد ICV",
-  "home.jv": "جاهز للمشاريع المشتركة",
-  "home.arNote": "الالتزام بالقيمة المحلية المضافة",
 
   "home.positioning.eye": "01 / الموقع",
   "home.positioning.h": "أداة شركات خاصة للبنية التحتية المدعومة من الدولة.",
@@ -129,18 +137,16 @@ const ar: Dict = {
 
   "roadmap.eye": "دورة التنفيذ",
   "roadmap.h": "خارطة النمو المرحلية",
-  "roadmap.scroll": "تمرير أفقي [المحور-س]",
 
   "active.eye": "القطاع النشط",
   "active.h": "الطاقة والطاقة المتجددة",
   "active.solarTitle": "الطاقة الشمسية الكهروضوئية",
-  "active.solarBody": "تطوير مصفوفات كهروضوئية واسعة النطاق بالشراكة مع منتجي الطاقة المستقلين عالمياً.",
+  "active.solarBody":
+    "تطوير مصفوفات كهروضوئية واسعة النطاق بالشراكة مع منتجي الطاقة المستقلين عالمياً.",
   "active.bessTitle": "أنظمة تخزين البطاريات",
   "active.bessBody": "أنظمة تخزين بطاريات حاوية لاستقرار الشبكة الإقليمية.",
   "active.gridTitle": "توسعة الشبكة عالية الجهد",
   "active.gridBody": "البنية التحتية للنقل عالي الجهد وتحديث المحطات الفرعية.",
-  "active.pipeline": "خط أنابيب الطاقة الشمسية",
-  "active.bessCap": "سعة BESS",
   "active.viewDivision": "استعراض القطاع",
 
   "loc.eye": "04 / الميزة الهيكلية",
@@ -186,12 +192,28 @@ const ar: Dict = {
   "about.focusVal": "البنية التحتية للطاقة والمشاريع المشتركة العابرة للحدود",
   "about.registered": "مكان التسجيل",
   "about.registeredVal": "سلطنة عُمان",
+  "about.vmEye": "الرؤية · الرسالة",
+  "about.visionTitle": "الرؤية",
+  "about.visionBody":
+    "أن تكون CBS الأداة الخاصة الأولى في السلطنة لتوجيه رأس مال البنية التحتية العالمي من الفئة الأولى وتقنياتها إلى عُمان وممرات الشرق الأوسط وأفريقيا — لتغدو منظومة التوطين هي القاعدة، لا الاستثناء.",
+  "about.missionTitle": "الرسالة",
+  "about.missionBody":
+    "هيكلة تحالفات حصرية بين الرواد التقنيين الأجانب والجهات السيادية، وتسليم تنفيذ متوافق مع القيمة المحلية المضافة عبر قطاعات الطاقة والزراعة وما يتصل بها من قطاعات صناعية — بمعايير سيادية وبجداول خاصة.",
+  "about.principleEye": "المبادئ التشغيلية",
+  "about.principleH": "ثلاث قواعد لا تتزحزح.",
+  "about.p1Title": "التوطين أولاً",
+  "about.p1Body": "تُعاير كل شراكة وفق أُطر القيمة المحلية المضافة قبل الهيكلة، لا بعدها.",
+  "about.p2Title": "تحفظ سيادي",
+  "about.p2Body":
+    "نعمل كطرف مغلق. لا قنوات لجمع العملاء، ولا تدفق صفقات عام، ولا جولات تمويل علنية.",
+  "about.p3Title": "حصص طويلة الأمد",
+  "about.p3Body": "تُكتب الشراكات لأفق عشري — مرافق، أنظمة غذائية، معادن انتقال الطاقة.",
 
   "footer.address": "مسقط، سلطنة عُمان",
   "footer.qual": "تأهيل الشراكة",
-  "footer.submit": "إرسال نشرة",
-  "footer.rights": "© 2024 المركزية لحلول الأعمال. جميع الحقوق محفوظة.",
-  "footer.ar": "شركة عمانية خاصة لتوطين الخبرات العالمية في قطاع الطاقة والبنية التحتية.",
+  "footer.submit": "تواصل الشركاء",
+  "footer.rights": "المركزية لحلول الأعمال. جميع الحقوق محفوظة.",
+  "footer.tagline": "شركة عمانية خاصة لتوطين الخبرات العالمية في قطاع الطاقة والبنية التحتية.",
 };
 
 const dicts = { en, ar };
@@ -205,13 +227,26 @@ interface I18nContext {
 
 const Ctx = createContext<I18nContext | null>(null);
 
+const STORAGE_KEY = "cbs:lang";
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
 
+  // Hydrate from localStorage on mount (client only)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === "ar" || stored === "en") setLang(stored);
+  }, []);
+
+  // Sync to <html lang/dir> + persist on every change
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(STORAGE_KEY, lang);
+    }
   }, [lang]);
 
   const t = (key: keyof typeof en) => dicts[lang][key] ?? en[key] ?? String(key);

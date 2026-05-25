@@ -1,23 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { useI18n } from "@/lib/i18n";
+import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/localization")({
-  head: () => ({
-    meta: [
-      { title: "The Localization Advantage — CBS" },
-      {
-        name: "description",
-        content:
-          "ICV scoring, regulatory navigation, and Oman Vision 2040 integration: the three pillars CBS offers foreign tier-1 partners.",
-      },
-      { property: "og:title", content: "The Localization Advantage — CBS" },
-      {
-        property: "og:description",
-        content: "Three pillars: ICV optimization, regulatory navigation, Vision 2040 integration.",
-      },
-    ],
-  }),
+  head: () =>
+    pageSeo({
+      path: "/localization",
+      title: "The Localization Advantage — CBS",
+      description:
+        "ICV scoring, regulatory navigation, and Oman Vision 2040 integration: the three pillars CBS offers foreign tier-1 partners.",
+      ogDescription:
+        "Three pillars: ICV optimization, regulatory navigation, Vision 2040 integration.",
+    }),
   component: LocalizationPage,
 });
 
@@ -56,15 +51,17 @@ function LocalizationPage() {
 
   return (
     <PageShell>
-      <section className="px-6 pt-16 pb-12 border-b border-brand-line">
+      <section className="px-6 pt-28 pb-12 border-b border-brand-line">
         <div className="max-w-7xl mx-auto">
           <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent mb-6">
             {t("loc.eye")}
           </div>
-          <h1 className="text-4xl sm:text-6xl font-medium tracking-tight text-balance leading-[1.05] mb-8 max-w-4xl">
+          <h1 className="text-4xl sm:text-6xl font-extralight tracking-tight text-balance leading-[1.05] mb-8 max-w-4xl">
             {t("loc.h")}
           </h1>
-          <p className="text-base sm:text-lg text-foreground/60 leading-relaxed max-w-[64ch]">{t("loc.lede")}</p>
+          <p className="text-base sm:text-lg text-foreground/60 leading-relaxed max-w-[64ch]">
+            {t("loc.lede")}
+          </p>
         </div>
       </section>
 
@@ -77,9 +74,11 @@ function LocalizationPage() {
                 <div className="text-4xl font-medium tracking-tight mt-2">{p.n}</div>
               </div>
               <div className="col-span-12 md:col-span-9">
-                <h2 className="text-2xl font-medium tracking-tight mb-3">{p.h}</h2>
+                <h2 className="text-2xl font-extralight tracking-tight mb-3">{p.h}</h2>
                 <p className="text-base text-foreground/70 leading-relaxed mb-4">{p.p}</p>
-                <p className="text-sm text-foreground/50 leading-relaxed max-w-[64ch]">{p.detail}</p>
+                <p className="text-sm text-foreground/50 leading-relaxed max-w-[64ch]">
+                  {p.detail}
+                </p>
               </div>
             </div>
           ))}

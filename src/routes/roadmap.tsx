@@ -1,24 +1,19 @@
+import { Fragment } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { useI18n } from "@/lib/i18n";
+import { pageSeo } from "@/lib/seo";
 import { ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/roadmap")({
-  head: () => ({
-    meta: [
-      { title: "Strategic Roadmap — CBS" },
-      {
-        name: "description",
-        content:
-          "The CBS phased activation roadmap across six industrial verticals — Power, Construction, Logistics, Minerals, Agriculture, Foodstuffs.",
-      },
-      { property: "og:title", content: "Strategic Roadmap — CBS" },
-      {
-        property: "og:description",
-        content: "Phased activation across six industrial verticals.",
-      },
-    ],
-  }),
+  head: () =>
+    pageSeo({
+      path: "/roadmap",
+      title: "Strategic Roadmap — CBS",
+      description:
+        "The CBS phased activation roadmap across six industrial verticals — Power, Construction, Logistics, Minerals, Agriculture, Foodstuffs.",
+      ogDescription: "Phased activation across six industrial verticals.",
+    }),
   component: RoadmapPage,
 });
 
@@ -27,7 +22,15 @@ type Phase = "active" | "planned" | "future";
 function RoadmapPage() {
   const { t, lang } = useI18n();
 
-  const phases: { n: string; status: Phase; date: string; title: string; body: string; to: string; params?: Record<string, string> }[] = [
+  const phases: {
+    n: string;
+    status: Phase;
+    date: string;
+    title: string;
+    body: string;
+    to: string;
+    params?: Record<string, string>;
+  }[] = [
     {
       n: "01",
       status: "active",
@@ -41,6 +44,18 @@ function RoadmapPage() {
     },
     {
       n: "02",
+      status: "active",
+      date: lang === "ar" ? "نشط · 2025" : "Active · 2025",
+      title: lang === "ar" ? "الزراعة" : "Agriculture",
+      body:
+        lang === "ar"
+          ? "زراعة منظمة وموجهة للتصدير عبر ممرات الأمن الغذائي الخليجي-الأفريقي."
+          : "Structured, export-oriented agriculture across Gulf-Africa food security corridors.",
+      to: "/vertical/$slug",
+      params: { slug: "agriculture" },
+    },
+    {
+      n: "03",
       status: "planned",
       date: lang === "ar" ? "مخطط · 2026" : "Planned · 2026",
       title: lang === "ar" ? "البناء" : "Construction",
@@ -52,7 +67,7 @@ function RoadmapPage() {
       params: { slug: "construction" },
     },
     {
-      n: "03",
+      n: "04",
       status: "planned",
       date: lang === "ar" ? "مخطط · 2026" : "Planned · 2026",
       title: lang === "ar" ? "الخدمات اللوجستية" : "Logistics",
@@ -64,7 +79,7 @@ function RoadmapPage() {
       params: { slug: "logistics" },
     },
     {
-      n: "04",
+      n: "05",
       status: "future",
       date: lang === "ar" ? "أفق طويل" : "Long-horizon",
       title: lang === "ar" ? "المعادن" : "Minerals",
@@ -74,18 +89,6 @@ function RoadmapPage() {
           : "Strategic positioning in critical minerals tied to the energy transition and battery supply chains.",
       to: "/vertical/$slug",
       params: { slug: "minerals" },
-    },
-    {
-      n: "05",
-      status: "active",
-      date: lang === "ar" ? "نشط · 2025" : "Active · 2025",
-      title: lang === "ar" ? "الزراعة" : "Agriculture",
-      body:
-        lang === "ar"
-          ? "زراعة منظمة وموجهة للتصدير عبر ممرات الأمن الغذائي الخليجي-الأفريقي."
-          : "Structured, export-oriented agriculture across Gulf-Africa food security corridors.",
-      to: "/vertical/$slug",
-      params: { slug: "agriculture" },
     },
     {
       n: "06",
@@ -103,12 +106,12 @@ function RoadmapPage() {
 
   return (
     <PageShell>
-      <section className="px-6 pt-16 pb-12 border-b border-brand-line">
+      <section className="px-6 pt-28 pb-12 border-b border-brand-line">
         <div className="max-w-7xl mx-auto">
           <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent mb-6">
             {t("roadmap.eye")}
           </div>
-          <h1 className="text-4xl sm:text-6xl font-medium tracking-tight text-balance leading-[1.05] mb-8 max-w-4xl">
+          <h1 className="text-4xl sm:text-6xl font-extralight tracking-tight text-balance leading-[1.05] mb-8 max-w-4xl">
             {lang === "ar" ? "تفعيل مرحلي." : "Phased Activation."}
           </h1>
           <p className="text-base sm:text-lg text-foreground/60 leading-relaxed max-w-[64ch]">
@@ -121,54 +124,64 @@ function RoadmapPage() {
 
       <section className="px-6 py-16">
         <div className="max-w-5xl mx-auto">
-          {phases.map((p) => (
-            <Link
-              key={p.n}
-              to={p.to as any}
-              params={p.params as any}
-              className={`group relative grid grid-cols-12 gap-6 py-10 px-4 sm:px-6 -mx-4 sm:-mx-6 border-b border-brand-line rounded-2xl transition-all duration-300 ease-out hover:scale-[1.025] hover:shadow-[0_30px_80px_-30px_var(--brand-glow)] hover:bg-card/40 hover:border-brand-teal/40 ${
-                p.status === "active"
-                  ? ""
-                  : p.status === "planned"
-                  ? "opacity-70 hover:opacity-100"
-                  : "opacity-40 hover:opacity-100"
-              }`}
-            >
-              <div className="col-span-12 md:col-span-2">
-                <div className="text-5xl font-medium tracking-tight text-foreground/30 group-hover:text-brand-teal transition-colors">{p.n}</div>
-              </div>
-              <div className="col-span-12 md:col-span-2">
-                <span
-                  className={`text-[9px] font-bold uppercase tracking-widest px-2 py-1 inline-block ${
-                    p.status === "active"
-                      ? "bg-brand-teal text-background"
-                      : p.status === "planned"
-                      ? "border border-brand-line text-foreground/60"
-                      : "border border-brand-line text-foreground/40"
-                  }`}
-                >
-                  {p.status === "active"
-                    ? lang === "ar"
-                      ? "نشط"
-                      : "Active"
+          {phases.map((p, i) => (
+            <Fragment key={p.n}>
+              {i > 0 && <div aria-hidden className="h-px bg-brand-line/40 mx-4 sm:mx-6" />}
+              <Link
+                to={p.to as never}
+                params={p.params as never}
+                className={`group relative grid grid-cols-12 gap-6 py-10 px-4 sm:px-6 -mx-4 sm:-mx-6 border border-transparent rounded-2xl transition-all duration-300 ease-out hover:scale-[1.025] hover:shadow-[0_30px_80px_-30px_var(--brand-glow)] hover:bg-card/40 hover:border-brand-teal/40 ${
+                  p.status === "active"
+                    ? ""
                     : p.status === "planned"
-                    ? lang === "ar"
-                      ? "مخطط"
-                      : "Planned"
-                    : lang === "ar"
-                    ? "مستقبلي"
-                    : "Future"}
-                </span>
-                <div className="text-[10px] uppercase tracking-widest text-foreground/40 mt-2">{p.date}</div>
-              </div>
-              <div className="col-span-12 md:col-span-8">
-                <div className="flex items-start justify-between gap-4">
-                  <h2 className="text-xl sm:text-2xl font-medium tracking-tight mb-2 group-hover:text-brand-teal transition-colors">{p.title}</h2>
-                  <ArrowUpRight className="size-5 text-foreground/30 group-hover:text-brand-teal transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+                      ? "opacity-70 hover:opacity-100"
+                      : "opacity-40 hover:opacity-100"
+                }`}
+              >
+                <div className="col-span-12 md:col-span-2">
+                  <div className="text-5xl font-medium tracking-tight text-foreground/30 group-hover:text-brand-teal transition-colors duration-300">
+                    {p.n}
+                  </div>
                 </div>
-                <p className="text-sm text-foreground/60 leading-relaxed max-w-[60ch]">{p.body}</p>
-              </div>
-            </Link>
+                <div className="col-span-12 md:col-span-2">
+                  <span
+                    className={`text-[9px] font-bold uppercase tracking-widest px-2 py-1 inline-block ${
+                      p.status === "active"
+                        ? "bg-brand-teal text-background"
+                        : p.status === "planned"
+                          ? "border border-brand-line text-foreground/60"
+                          : "border border-brand-line text-foreground/40"
+                    }`}
+                  >
+                    {p.status === "active"
+                      ? lang === "ar"
+                        ? "نشط"
+                        : "Active"
+                      : p.status === "planned"
+                        ? lang === "ar"
+                          ? "مخطط"
+                          : "Planned"
+                        : lang === "ar"
+                          ? "مستقبلي"
+                          : "Future"}
+                  </span>
+                  <div className="text-[10px] uppercase tracking-widest text-foreground/40 mt-2">
+                    {p.date}
+                  </div>
+                </div>
+                <div className="col-span-12 md:col-span-8">
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="text-xl sm:text-2xl font-extralight tracking-tight mb-2 group-hover:text-brand-teal transition-colors duration-300">
+                      {p.title}
+                    </h2>
+                    <ArrowUpRight className="size-5 text-foreground/30 group-hover:text-brand-teal transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+                  </div>
+                  <p className="text-sm text-foreground/60 leading-relaxed max-w-[60ch]">
+                    {p.body}
+                  </p>
+                </div>
+              </Link>
+            </Fragment>
           ))}
         </div>
       </section>

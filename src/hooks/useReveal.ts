@@ -1,10 +1,19 @@
 import { useEffect, useRef } from "react";
 
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
   const ref = useRef<T | null>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (prefersReducedMotion()) {
+      el.classList.add("is-visible");
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -29,6 +38,10 @@ export function useRevealAll() {
     const root = ref.current;
     if (!root) return;
     const els = root.querySelectorAll<HTMLElement>(".reveal");
+    if (prefersReducedMotion()) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

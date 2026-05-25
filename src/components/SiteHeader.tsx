@@ -19,16 +19,21 @@ export function SiteHeader() {
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 12);
-    on(); window.addEventListener("scroll", on, { passive: true });
+    on();
+    window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [location.pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
 
   return (
     <nav
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-background/70 backdrop-blur-xl border-b border-brand-line" : "bg-transparent border-b border-transparent"
+        scrolled
+          ? "bg-background/70 backdrop-blur-xl border-b border-brand-line"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
@@ -38,7 +43,9 @@ export function SiteHeader() {
             <span className="relative size-2.5 rounded-full bg-brand-teal" aria-hidden />
           </span>
           <span className="text-sm font-semibold tracking-tight">
-            <span className="hidden sm:inline">CBS <span className="text-foreground/40">/ Centric Business Solutions</span></span>
+            <span className="hidden sm:inline">
+              CBS <span className="text-foreground/40">/ Centric Business Solutions</span>
+            </span>
             <span className="sm:hidden">CBS</span>
           </span>
         </Link>
@@ -73,7 +80,9 @@ export function SiteHeader() {
             className="hidden sm:inline-flex group relative overflow-hidden rounded-full bg-brand-teal text-primary-foreground text-[12px] font-medium py-2 ps-3.5 pe-2 items-center gap-2 hover:shadow-[0_10px_30px_-10px_var(--brand-glow)] transition-all"
           >
             <span>{t("nav.portal")}</span>
-            <ArrowUpRight className={`size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${lang === "ar" ? "-scale-x-100" : ""}`} />
+            <ArrowUpRight
+              className={`size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${lang === "ar" ? "-scale-x-100" : ""}`}
+            />
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -88,15 +97,26 @@ export function SiteHeader() {
       {/* Mobile drawer */}
       <div
         className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-500 ${
-          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          open ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
         } bg-background/95 backdrop-blur-xl border-t border-brand-line`}
       >
         <div className="px-6 py-6 flex flex-col gap-4">
           {links.map((l) => (
-            <Link key={l.to} to={l.to} className="text-sm font-medium text-foreground/80 hover:text-brand-teal">
+            <Link
+              key={l.to}
+              to={l.to}
+              className="text-sm font-medium text-foreground/80 hover:text-brand-teal"
+            >
               {t(l.key)}
             </Link>
           ))}
+          <Link
+            to="/partnership"
+            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brand-teal text-primary-foreground text-sm font-medium py-2.5 px-4 self-start hover:shadow-[0_10px_30px_-10px_var(--brand-glow)] transition-all"
+          >
+            <span>{t("nav.portal")}</span>
+            <ArrowUpRight className={`size-3.5 ${lang === "ar" ? "-scale-x-100" : ""}`} />
+          </Link>
         </div>
       </div>
     </nav>

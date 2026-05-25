@@ -6,7 +6,10 @@ export function AnimatedBackground({ variant = "hero" }: { variant?: "hero" | "s
       {variant === "hero" && (
         <>
           <div className="absolute top-1/3 -left-24 size-80 rounded-full bg-brand-teal/20 blur-3xl animate-float" />
-          <div className="absolute bottom-10 right-10 size-72 rounded-full bg-brand-amber/15 blur-3xl animate-float" style={{ animationDelay: "-3s" }} />
+          <div
+            className="absolute bottom-10 right-10 size-72 rounded-full bg-brand-amber/15 blur-3xl animate-float"
+            style={{ animationDelay: "-3s" }}
+          />
         </>
       )}
       <div className="absolute inset-0 grain" />
