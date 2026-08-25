@@ -118,7 +118,9 @@ function PowerPage() {
                       [ {a.n} ]
                     </span>
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight mb-5">{a.title}</h2>
+                  <h2 className="text-3xl sm:text-4xl font-extralight tracking-tight mb-5">
+                    {a.title}
+                  </h2>
                   <p className="text-base text-foreground/65 leading-relaxed mb-6">{a.body}</p>
                   <ul className="space-y-2.5">
                     {a.points.map((p, j) => (

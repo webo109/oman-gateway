@@ -5,9 +5,11 @@ import { OmaniStar } from "@/components/OmaniMotif";
 import { useRevealAll } from "@/hooks/useReveal";
 import { useI18n } from "@/lib/i18n";
 import { pageSeo } from "@/lib/seo";
+import { adjacentDivisions } from "@/lib/divisions";
 import {
   ArrowUpRight,
   ArrowLeft,
+  ArrowRight,
   HardHat,
   Truck,
   Mountain,
@@ -331,6 +333,7 @@ function VerticalPage() {
   const root = useRevealAll();
   if (!v) return null;
   const Icon = v.icon;
+  const { prev, next } = adjacentDivisions(slug);
 
   const statusLabel =
     v.status === "active"
@@ -353,13 +356,20 @@ function VerticalPage() {
           <AnimatedBackground variant="soft" />
           <div className="absolute inset-0 bg-omani-pattern-soft opacity-60 pointer-events-none" />
           <div className="relative max-w-7xl mx-auto">
-            <Link
-              to="/roadmap"
-              className="reveal inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.25em] text-foreground/55 hover:text-brand-teal transition-colors"
+            <nav
+              className="reveal flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.25em] text-foreground/45"
+              aria-label="Breadcrumb"
             >
-              <ArrowLeft className={`size-3.5 ${lang === "ar" ? "-scale-x-100" : ""}`} />
-              {lang === "ar" ? "العودة إلى خارطة الطريق" : "Back to roadmap"}
-            </Link>
+              <Link to="/" className="transition-colors hover:text-brand-teal">
+                {lang === "ar" ? "الرئيسية" : "Home"}
+              </Link>
+              <span aria-hidden>/</span>
+              <Link to="/roadmap" className="transition-colors hover:text-brand-teal">
+                {lang === "ar" ? "القطاعات" : "Divisions"}
+              </Link>
+              <span aria-hidden>/</span>
+              <span className="text-foreground/70">{lang === "ar" ? v.title.ar : v.title.en}</span>
+            </nav>
 
             <div className="reveal reveal-delay-1 mt-8 flex flex-wrap items-center gap-3">
               <span className="grid place-items-center size-11 rounded-xl bg-brand-teal/15 text-brand-teal">
@@ -456,6 +466,48 @@ function VerticalPage() {
             </section>
           );
         })}
+
+        {/* Prev / next division */}
+        {(prev || next) && (
+          <section className="px-6 pb-4">
+            <div className="mx-auto flex max-w-7xl items-start justify-between gap-4 border-t border-brand-line pt-8">
+              {prev ? (
+                <Link
+                  to={prev.to as never}
+                  params={prev.params as never}
+                  className="group flex flex-col gap-1 text-start"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-foreground/40">
+                    {lang === "ar" ? "السابق" : "Previous"}
+                  </span>
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground/80 group-hover:text-brand-teal">
+                    <ArrowLeft className={`size-4 ${lang === "ar" ? "-scale-x-100" : ""}`} />
+                    {lang === "ar" ? prev.title.ar : prev.title.en}
+                  </span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {next ? (
+                <Link
+                  to={next.to as never}
+                  params={next.params as never}
+                  className="group flex flex-col items-end gap-1 text-end"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-foreground/40">
+                    {lang === "ar" ? "التالي" : "Next"}
+                  </span>
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground/80 group-hover:text-brand-teal">
+                    {lang === "ar" ? next.title.ar : next.title.en}
+                    <ArrowRight className={`size-4 ${lang === "ar" ? "-scale-x-100" : ""}`} />
+                  </span>
+                </Link>
+              ) : (
+                <span />
+              )}
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="relative px-6 py-28 overflow-hidden">

@@ -5,7 +5,14 @@ import { OmaniStar } from "@/components/OmaniMotif";
 import { useRevealAll } from "@/hooks/useReveal";
 import { useI18n } from "@/lib/i18n";
 import { pageSeo } from "@/lib/seo";
-import { Compass, Infinity as InfinityIcon, Mail, MapPin, ArrowUpRight, Shield } from "lucide-react";
+import {
+  Compass,
+  Infinity as InfinityIcon,
+  Mail,
+  MapPin,
+  ArrowUpRight,
+  Shield,
+} from "lucide-react";
 
 export const Route = createFileRoute("/partnership")({
   head: () =>

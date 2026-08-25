@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { Counter } from "@/components/Counter";
 import { Marquee } from "@/components/Marquee";
 import { VisionMissionSection } from "@/components/VisionMissionSection";
@@ -18,10 +17,8 @@ import {
   Truck,
   Wheat,
 } from "lucide-react";
-import substationImg from "@/assets/substation.jpg";
-import solarImg from "@/assets/solar.jpg";
-import bessImg from "@/assets/bess.jpg";
-import gridImg from "@/assets/grid.jpg";
+import heroVideo from "@/assets/hero-video.mp4";
+import heroPoster from "@/assets/hero-poster.jpg";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -146,42 +143,31 @@ function Index() {
           "Cross-Border Logistics",
         ];
 
-  const verticals = [
-    {
-      img: solarImg,
-      title: t("active.solarTitle"),
-      body: t("active.solarBody"),
-      tag: "1.2 GW Pipeline",
-    },
-    {
-      img: bessImg,
-      title: t("active.bessTitle"),
-      body: t("active.bessBody"),
-      tag: "400 MWh Capacity",
-    },
-    { img: gridImg, title: t("active.gridTitle"), body: t("active.gridBody"), tag: "HV / EHV" },
-  ];
-
   return (
     <PageShell>
       <div ref={root}>
         {/* HERO */}
         <section className="relative isolate min-h-screen flex items-center overflow-hidden">
-          <AnimatedBackground variant="hero" />
-          {/* Faint substation visual */}
-          <img
-            src={substationImg}
-            alt=""
-            aria-hidden
-            className="absolute right-0 bottom-0 w-[72%] max-w-[1200px] opacity-[0.18] object-cover object-bottom mix-blend-luminosity pointer-events-none"
-            style={{
-              maskImage: "radial-gradient(ellipse at right bottom, black 30%, transparent 75%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse at right bottom, black 30%, transparent 75%)",
-            }}
-          />
+          {/* Background video (desktop, motion-safe) with poster fallback (mobile + reduced-motion) */}
+          <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden>
+            <img src={heroPoster} alt="" className="absolute inset-0 h-full w-full object-cover" />
+            <video
+              className="hero-video absolute inset-0 hidden h-full w-full object-cover md:block"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={heroPoster}
+            >
+              <source src={heroVideo} type="video/mp4" />
+            </video>
+            {/* Legibility scrim — kept light so the video stays visible; gradients protect the text zone */}
+            <div className="absolute inset-0 bg-background/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+            <div className="hero-side-scrim absolute inset-0 bg-gradient-to-r from-background/80 via-background/20 to-transparent rtl:bg-gradient-to-l" />
+          </div>
 
-          <div className="relative max-w-7xl mx-auto px-6 w-full py-[clamp(4rem,8vh,6rem)]">
+          <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 pt-24 lg:pb-[clamp(4rem,8vh,6rem)]">
             <div className="reveal flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.25em] text-brand-teal">
               <span className="relative inline-flex">
                 <span className="absolute inset-0 rounded-full bg-brand-teal pulse-dot" />
@@ -195,16 +181,12 @@ function Index() {
               style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)" }}
             >
               <span className="block">{t("home.h1.a")}</span>
-              <span className="block">
-                <span className="font-serif italic font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-teal via-foreground to-brand-amber pr-2">
-                  {t("home.h1.b")}
-                </span>
-              </span>
-              <span className="block text-foreground/55">{t("home.h1.c")}</span>
+              <span className="block text-foreground">{t("home.h1.b")}</span>
+              <span className="hero-heading-soft block text-foreground/55">{t("home.h1.c")}</span>
             </h1>
 
             <div className="reveal reveal-delay-2 mt-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
-              <p className="md:col-span-6 text-base sm:text-lg text-foreground/65 leading-relaxed max-w-[52ch]">
+              <p className="hero-body-copy md:col-span-6 max-w-[52ch] text-base leading-relaxed text-foreground/65 sm:text-lg">
                 {t("home.lede")}
               </p>
               <div className="md:col-span-6 flex flex-col sm:flex-row md:justify-end gap-3">
@@ -256,7 +238,7 @@ function Index() {
                   <div className="text-3xl sm:text-4xl font-light tracking-tight">
                     <Counter to={Number(m.k)} decimals={m.dec} suffix={m.suf} />
                   </div>
-                  <div className="mt-2 text-[10px] font-mono uppercase tracking-[0.2em] text-foreground/45">
+                  <div className="hero-metric-label mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/45">
                     {m.lbl}
                   </div>
                 </div>
@@ -265,7 +247,7 @@ function Index() {
           </div>
 
           {/* Scroll cue */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/40 hidden md:flex flex-col items-center gap-2">
+          <div className="hero-scroll-label absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40 md:flex">
             <span>{t("home.scrollHint")}</span>
             <span className="block h-8 w-px bg-gradient-to-b from-foreground/40 to-transparent" />
           </div>
@@ -359,61 +341,6 @@ function Index() {
                   </Link>
                 );
               })}
-            </div>
-          </div>
-        </section>
-
-        {/* ACTIVE VERTICAL — POWER */}
-        <section className="relative py-28 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-6 items-end justify-between mb-12">
-              <div className="reveal max-w-[56ch]">
-                <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-brand-teal">
-                  {t("active.eye")}
-                </div>
-                <h2 className="mt-3 text-3xl sm:text-5xl font-extralight tracking-tight">
-                  {t("active.h")}
-                </h2>
-              </div>
-              <Link
-                to="/power"
-                className="reveal reveal-delay-1 inline-flex items-center gap-2 text-sm font-medium text-foreground/70 hover:text-brand-teal group"
-              >
-                {t("active.viewDivision")}
-                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-5">
-              {verticals.map((v, i) => (
-                <article
-                  key={i}
-                  className={`reveal reveal-delay-${i + 1} group relative overflow-hidden rounded-2xl border border-brand-line bg-background tilt-card`}
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={v.img}
-                      alt={v.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-110"
-                      style={{
-                        maskImage:
-                          "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-                        WebkitMaskImage:
-                          "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-                      }}
-                    />
-                    <div className="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-[0.2em] px-2 py-1 rounded-full bg-background/60 backdrop-blur border border-brand-line text-foreground/80 z-10">
-                      {v.tag}
-                    </div>
-                  </div>
-                  <div className="-mt-px p-6 bg-background">
-                    <h3 className="text-lg font-extralight">{v.title}</h3>
-                    <p className="mt-2 text-sm text-foreground/60 leading-relaxed">{v.body}</p>
-                  </div>
-                </article>
-              ))}
             </div>
           </div>
         </section>
