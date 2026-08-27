@@ -101,7 +101,7 @@ export function SiteHeader() {
 
   const onDivision = pathname === "/power" || pathname.startsWith("/vertical");
   const linkCls = (active: boolean) =>
-    `story-link text-[12px] font-medium tracking-wide transition-colors ${
+    `inline-flex h-9 items-center text-[12px] font-medium leading-none tracking-wide transition-colors ${
       active ? "text-foreground" : "text-foreground/55 hover:text-foreground"
     }`;
 
@@ -126,11 +126,11 @@ export function SiteHeader() {
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <div className="relative">
+          <div className="relative flex h-9 items-center">
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-expanded={menuOpen}
-              className={`inline-flex items-center gap-1.5 text-[12px] font-medium tracking-wide transition-colors ${
+              className={`inline-flex h-full items-center gap-1.5 text-[12px] font-medium leading-none tracking-wide transition-colors ${
                 onDivision || menuOpen
                   ? "text-foreground"
                   : "text-foreground/55 hover:text-foreground"
@@ -162,7 +162,7 @@ export function SiteHeader() {
           </div>
 
           <Link to="/localization" className={linkCls(pathname === "/localization")}>
-            {t("nav.localization")}
+            <span className="story-link">{t("nav.localization")}</span>
           </Link>
         </div>
 

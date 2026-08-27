@@ -10,7 +10,8 @@ import tsConfigPaths from "vite-tsconfig-paths";
 // .vercel/output/ that Vercel deploys natively.
 export default defineConfig({
   server: {
-    port: 8080,
+    // Honor the port assigned via PORT (e.g. the preview harness' autoPort); fall back to 8080.
+    port: process.env.PORT ? Number(process.env.PORT) : 8080,
     host: true,
   },
   plugins: [
